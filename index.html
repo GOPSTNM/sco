@@ -100,7 +100,7 @@
   }
 
   const cycleDay = (cycleDayCount % 6) + 1;
-  document.getElementById('output').value = JSON.stringify(({nextSchoolDate: formatDate(nextSchoolDay), cycleDay, holidaysBetween});
+  document.getElementById('output').value = JSON.stringify({nextSchoolDate: formatDate(nextSchoolDay), cycleDay, holidaysBetween});
   return {
     nextSchoolDate: formatDate(nextSchoolDay),
     cycleDay,
