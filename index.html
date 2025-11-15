@@ -1,6 +1,6 @@
 <html>
   <body>
-    <input type="date" id="input" onchange="document.getElementById('output') = JSON.stringify(get_calendar_next_day());">
+    <input type="date" id="input" onchange="document.getElementById('output').value = JSON.stringify(get_calendar_next_day());">
     <p id="output"></p>
     <script>
       function get_calendar_next_day() {
@@ -63,7 +63,7 @@
   }
 
   const holidays = new Set(Object.keys(calendar_data)); // Set of string dates
-  const today = new Date(document.getElementById("input"));
+  const today = new Date(document.getElementById("input").value);
   const startCountDate = new Date("2025-11-07"); // Starting cycle day 1
 
   let nextSchoolDay = new Date(today);
