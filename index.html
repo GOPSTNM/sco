@@ -1,6 +1,7 @@
 <html>
   <body>
-    <input type="date" id="input" onchange="alert(get_calendar_next_day());">
+    <input type="date" id="input" onchange="document.getElementById('output') = JSON.stringify(get_calendar_next_day());">
+    <p id="output"></p>
     <script>
       function get_calendar_next_day() {
   const calendar_data = {
