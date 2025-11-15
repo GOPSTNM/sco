@@ -1,6 +1,6 @@
 <html>
   <body>
-    <input type="date" id="input" onchange="document.getElementById('output').value = JSON.stringify(get_calendar_next_day());">
+    <input type="date" id="input" onchange="get_calendar_next_day();">
     <p id="output"></p>
     <script>
       function get_calendar_next_day() {
@@ -100,7 +100,7 @@
   }
 
   const cycleDay = (cycleDayCount % 6) + 1;
-
+  document.getElementById('output').value = JSON.stringfy({nextSchoolDate: formatDate(nextSchoolDay), cycleDay, holidaysBetween});
   return {
     nextSchoolDate: formatDate(nextSchoolDay),
     cycleDay,
