@@ -1,0 +1,111 @@
+<html>
+  <body>
+    <input type="date" id="input" onchange="alert(get_calendar_next_day());">
+    <script>
+      function get_calendar_next_day() {
+  const calendar_data = {
+    "08/12/2025": ["The day following the election day"],
+    "15/12/2025": ["Discretionary Holiday after Information Day for S1 Admission"],
+    "22/12/2025": ["School Picnic Day"],
+    "23/12/2025": ["Christmas Variety Show"],
+    "24/12/2025": ["Christmas & New Year Holiday"],
+    "25/12/2025": ["Christmas & New Year Holiday"],
+    "26/12/2025": ["Christmas & New Year Holiday"],
+    "29/12/2025": ["Christmas & New Year Holiday"],
+    "30/12/2025": ["Christmas & New Year Holiday"],
+    "31/12/2025": ["Christmas & New Year Holiday"],
+    "01/01/2026": ["Christmas & New Year Holiday"],
+    "02/01/2026": ["Christmas & New Year Holiday"],
+    "16/02/2026": ["Lunar New Year Holiday"],
+    "17/02/2026": ["Lunar New Year Holiday"],
+    "18/02/2026": ["Lunar New Year Holiday"],
+    "19/02/2026": ["Lunar New Year Holiday"],
+    "20/02/2026": ["Lunar New Year Holiday"],
+    "23/02/2026": ["Lunar New Year Holiday"],
+    "24/02/2026": ["Lunar New Year Holiday"],
+    "09/03/2026": ["Discretionary Holiday after Parents’ Day"],
+    "13/03/2026": ["OLE Day"],
+    "23/03/2026": ["Second Form Test"],
+    "24/03/2026": ["Second Form Test"],
+    "25/03/2026": ["Second Form Test"],
+    "26/03/2026": ["Second Form Test"],
+    "27/03/2026": ["Second Form Test"],
+    "30/03/2026": ["Easter Holiday"],
+    "31/03/2026": ["Easter Holiday"],
+    "01/04/2026": ["Easter Holiday"],
+    "02/04/2026": ["Easter Holiday"],
+    "03/04/2026": ["Easter Holiday"],
+    "06/04/2026": ["Easter Holiday"],
+    "07/04/2026": ["Easter Holiday"],
+    "08/04/2026": ["Easter Holiday"],
+    "01/05/2026": ["Labour Day"],
+    "25/05/2026": ["The day following the Birthday of the Buddha"],
+    "03/06/2026": ["Staff Development Day"],
+    "04/06/2026": ["Study Break"],
+    "05/06/2026": ["Study Break"],
+    "08/06/2026": ["Final Exam"],
+    "09/06/2026": ["Final Exam"],
+    "10/06/2026": ["Final Exam"],
+    "11/06/2026": ["Final Exam"],
+    "12/06/2026": ["Final Exam"],
+    "15/06/2026": ["Final Exam"],
+    "16/06/2026": ["Final Exam"],
+    "17/06/2026": ["Final Exam"],
+    "18/06/2026": ["Final Exam"],
+    "19/06/2026": ["Tuen Ng Festival"],
+    "22/06/2026": ["Final Exam"]
+  };
+
+  // Helper to format a date into dd/mm/yyyy
+  function formatDate(date) {
+    return date.toLocaleDateString("en-GB");
+  }
+
+  const holidays = new Set(Object.keys(calendar_data)); // Set of string dates
+  const today = new Date(document.getElementById("input"));
+  const startCountDate = new Date("2025-11-07"); // Starting cycle day 1
+
+  let nextSchoolDay = new Date(today);
+  let holidaysBetween = [];
+
+  // Find next school day (not weekend, not holiday)
+  for (let i = 0; i < 365; i++) {
+    nextSchoolDay.setDate(nextSchoolDay.getDate() + 1);
+    const dayOfWeek = nextSchoolDay.getDay();
+    const dateStr = formatDate(nextSchoolDay);
+
+    if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidays.has(dateStr)) {
+      break;
+    }
+  }
+
+  // Count number of school days from startCountDate to nextSchoolDay
+  let cycleDayCount = 0;
+  let tempDate = new Date(startCountDate);
+  while (tempDate < nextSchoolDay) {
+    const dateStr = formatDate(tempDate);
+    const dayOfWeek = tempDate.getDay();
+
+    if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidays.has(dateStr)) {
+      cycleDayCount++;
+    }
+
+    // Log holidays between today and next school day
+    if (holidays.has(dateStr) && tempDate > today) {
+      holidaysBetween.push([new Date(tempDate), calendar_data[dateStr][0]]);
+    }
+
+    tempDate.setDate(tempDate.getDate() + 1);
+  }
+
+  const cycleDay = (cycleDayCount % 6) + 1;
+
+  return {
+    nextSchoolDate: formatDate(nextSchoolDay),
+    cycleDay,
+    holidaysBetween
+  };
+}
+    </script>
+  </body>
+</html>
