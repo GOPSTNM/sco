@@ -3,6 +3,7 @@
     <input type="date" id="input" onchange="document.getElementById('output').innerHTML = out_format(get_calendar_next_day(new Date(document.getElementById('input').value)))">
     <p style="height: 60%;"></p>
     <p id="output"></p>
+    <div></div>
     <script>
 function get_calendar_next_day(in_day) {
   const calendar_data = {
