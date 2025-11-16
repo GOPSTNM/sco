@@ -1,6 +1,6 @@
 <html>
   <body>
-    <input type="date" id="input" onchange="document.getElementById('output').innerHTML = JSON.stringify(get_calendar_next_day())">
+    <input type="date" id="input" onchange="document.getElementById('output').innerHTML = formatSchoolDayInfo(get_calendar_next_day())">
     <p id="output"></p>
     <script>
       function get_calendar_next_day() {
@@ -105,6 +105,26 @@
     cycleDay,
     holidaysBetween
   };
+}
+      function formatSchoolDayInfo(info) {
+  if (!info || !info.nextSchoolDate || !info.cycleDay) {
+    return "Invalid data.";
+  }
+
+  let output = `• Next School Day: ${info.nextSchoolDate}\n`;
+  output += `• Cycle Day: Day ${info.cycleDay}\n`;
+
+  if (info.holidaysBetween && info.holidaysBetween.length > 0) {
+    output += `• Holidays Before Next School Day:\n`;
+    for (const [dateObj, name] of info.holidaysBetween) {
+      const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
+      output += `  - ${dateStr}: ${name}\n`;
+    }
+  } else {
+    output += `• No holidays before the next school day.\n`;
+  }
+
+  return output;
 }
     </script>
   </body>
