@@ -3,7 +3,7 @@
     <input type="date" id="input" onchange="document.getElementById('output').innerHTML = formatSchoolDayInfo(get_calendar_next_day(new Date(document.getElementById('input').value)))">
     <p id="output"></p>
     <script>
-      function get_calendar_next_day(in_date) {
+function get_calendar_next_day(in_day) {
   const calendar_data = {
     "08/12/2025": ["The day following the election day"],
     "15/12/2025": ["Discretionary Holiday after Information Day for S1 Admission"],
@@ -56,54 +56,38 @@
     "19/06/2026": ["Tuen Ng Festival"],
     "22/06/2026": ["Final Exam"]
   };
-
-  // Helper to format a date into dd/mm/yyyy
-  function formatDate(date) {
-    return date.toLocaleDateString("en-GB");
+  function format_date(d) {
+    return d.toLocaleDateString("en-GB");
   }
-
-  const holidays = new Set(Object.keys(calendar_data)); // Set of string dates
-  const today = in_date;
-  const startCountDate = new Date("2025-11-07"); // Starting cycle day 1
-
-  let nextSchoolDay = new Date(today);
-  let holidaysBetween = [];
-
-  // Find next school day (not weekend, not holiday)
+  const formatted_calendar_data = new Set(Object.keys(calendar_data));
+  const start_day = new Date("2025-11-07");
+  let next_day = new Date(in_day);
+  let days_between = [];
   for (let i = 0; i < 365; i++) {
-    nextSchoolDay.setDate(nextSchoolDay.getDate() + 1);
-    const dayOfWeek = nextSchoolDay.getDay();
-    const dateStr = formatDate(nextSchoolDay);
-
-    if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidays.has(dateStr)) {
+    next_day.setDate(next_day.getDate() + 1);
+    const weekday = next_day.getDay();
+    const string = format_date(nextSchoolDay);
+    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
       break;
     }
   }
-
-  // Count number of school days from startCountDate to nextSchoolDay
-  let cycleDayCount = 0;
-  let tempDate = new Date(startCountDate);
-  while (tempDate < nextSchoolDay) {
-    const dateStr = formatDate(tempDate);
-    const dayOfWeek = tempDate.getDay();
-
-    if (dayOfWeek !== 0 && dayOfWeek !== 6 && !holidays.has(dateStr)) {
-      cycleDayCount++;
+  let cycle_no = 0;
+  let count_day = new Date(start_day);
+  while (count_day < next_day) {
+    const weekday = count_day.getDay();
+    const string = format_date(count_day);
+    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
+      cycle_no++;
     }
-
-    // Log holidays between today and next school day
-    if (holidays.has(dateStr) && tempDate > today) {
-      holidaysBetween.push([new Date(tempDate), calendar_data[dateStr][0]]);
+    if (formatted_calendar_data.has(string) && count_day > in_day) {
+      days_between.push([new Date(count_day), calendar_data[string][0]]);
     }
-
-    tempDate.setDate(tempDate.getDate() + 1);
+    count_day.setDate(count_day.getDate() + 1);
   }
-
-  const cycleDay = (cycleDayCount % 6) + 1;
   return {
-    nextSchoolDate: formatDate(nextSchoolDay),
-    cycleDay,
-    holidaysBetween
+    next_day: formatDate(nextSchoolDay),
+    cycle_no % 6 + 1;,
+    days_between
   };
 }
       function formatSchoolDayInfo(info) {
@@ -118,7 +102,7 @@
     output += `<br>\n• Holidays Before Next School Day:\n`;
     for (const [dateObj, name] of info.holidaysBetween) {
       const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
-      output += `  - ${dateStr}: ${name}<br>\n\n`;
+      output += `<br>- ${dateStr}: ${name}<br>\n\n`;
     }
   } else {
     output += `<br>• No holidays before the next school day.\n`;
