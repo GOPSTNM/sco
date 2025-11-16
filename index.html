@@ -66,7 +66,7 @@ function get_calendar_next_day(in_day) {
   for (let i = 0; i < 365; i++) {
     next_day.setDate(next_day.getDate() + 1);
     const weekday = next_day.getDay();
-    const string = format_date(nextSchoolDay);
+    const string = format_date(next_day);
     if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
       break;
     }
