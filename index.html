@@ -1,9 +1,9 @@
 <html>
   <body>
-    <input type="date" id="input" onchange="document.getElementById('output').innerHTML = formatSchoolDayInfo(get_calendar_next_day())">
+    <input type="date" id="input" onchange="document.getElementById('output').innerHTML = formatSchoolDayInfo(get_calendar_next_day(new Date(document.getElementById("input").value)))">
     <p id="output"></p>
     <script>
-      function get_calendar_next_day() {
+      function get_calendar_next_day(in_date) {
   const calendar_data = {
     "08/12/2025": ["The day following the election day"],
     "15/12/2025": ["Discretionary Holiday after Information Day for S1 Admission"],
@@ -63,7 +63,7 @@
   }
 
   const holidays = new Set(Object.keys(calendar_data)); // Set of string dates
-  const today = new Date(document.getElementById("input").value);
+  const today = in_date;
   const startCountDate = new Date("2025-11-07"); // Starting cycle day 1
 
   let nextSchoolDay = new Date(today);
