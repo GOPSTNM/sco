@@ -108,6 +108,7 @@ function get_calendar_next_day(in_day) {
   return output;
 }
       function out_format(data) {
+        console.log(data);
   if (!Array.isArray(data) || data.length < 3) {
     return "Invalid data.";
   }
