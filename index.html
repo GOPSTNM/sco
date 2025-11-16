@@ -84,11 +84,7 @@ function get_calendar_next_day(in_day) {
     }
     count_day.setDate(count_day.getDate() + 1);
   }
-  return {
-    next_day: formatDate(nextSchoolDay),
-    cycle_no % 6 + 1;,
-    days_between
-  };
+  return [format_date(next_day),cycle_no % 6 + 1, days_between];
 }
       function formatSchoolDayInfo(info) {
   if (!info || !info.nextSchoolDate || !info.cycleDay) {
