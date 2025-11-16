@@ -112,13 +112,13 @@
   }
 
   let output = `• Next School Day: ${info.nextSchoolDate}\n`;
-  output += `• Cycle Day: Day ${info.cycleDay}\n`;
+  output += `\n• Cycle Day: Day ${info.cycleDay}\n`;
 
   if (info.holidaysBetween && info.holidaysBetween.length > 0) {
-    output += `• Holidays Before Next School Day:\n`;
+    output += `\n• Holidays Before Next School Day:\n`;
     for (const [dateObj, name] of info.holidaysBetween) {
       const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
-      output += `  - ${dateStr}: ${name}\n`;
+      output += `  - ${dateStr}: ${name}\n\n`;
     }
   } else {
     output += `• No holidays before the next school day.\n`;
