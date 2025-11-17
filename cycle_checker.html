@@ -7,9 +7,251 @@
   <body>
     <h1>Cycle Checker</h1>
     <p>Please input date</p>
+    <input type="date" id="input" onchange="document.getElementById('results').innerHTML = out_format(get_calendar_next_day(new Date(this.value)));">
     <div id="results"></div>
     <p class="description_text">The information is for reference only</p>
     <script>
+      function get_calendar_next_day(in_day) {
+  const calendar_data = {
+    "08/12/2025": [
+        "The day following the election day"
+    ],
+    "15/12/2025": [
+        "Discretionary Holiday after Information Day for S1 Admission"
+    ],
+    "22/12/2025": [
+        "School Picnic Day"
+    ],
+    "23/12/2025": [
+        "Christmas Variety Show"
+    ],
+    "24/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "25/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "26/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "29/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "30/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "31/12/2025": [
+        "Christmas & New Year Holiday"
+    ],
+    "01/01/2026": [
+        "Christmas & New Year Holiday"
+    ],
+    "02/01/2026": [
+        "Christmas & New Year Holiday"
+    ],
+    "05/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "06/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "07/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "08/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "09/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "12/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "13/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "14/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "15/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "16/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "19/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "20/01/2026": [
+        "Half-yearly Exam"
+    ],
+    "16/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "17/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "18/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "19/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "20/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "23/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "24/02/2026": [
+        "Lunar New Year Holiday"
+    ],
+    "09/03/2026": [
+        "Discretionary Holiday after Parents’ Day"
+    ],
+    "13/03/2026": [
+        "OLE Day"
+    ],
+    "23/03/2026": [
+        "Second Form Test"
+    ],
+    "24/03/2026": [
+        "Second Form Test"
+    ],
+    "25/03/2026": [
+        "Second Form Test"
+    ],
+    "26/03/2026": [
+        "Second Form Test"
+    ],
+    "27/03/2026": [
+        "Second Form Test"
+    ],
+    "30/03/2026": [
+        "Easter Holiday"
+    ],
+    "31/03/2026": [
+        "Easter Holiday"
+    ],
+    "01/04/2026": [
+        "Easter Holiday"
+    ],
+    "02/04/2026": [
+        "Easter Holiday"
+    ],
+    "03/04/2026": [
+        "Easter Holiday"
+    ],
+    "06/04/2026": [
+        "Easter Holiday"
+    ],
+    "07/04/2026": [
+        "Easter Holiday"
+    ],
+    "08/04/2026": [
+        "Easter Holiday"
+    ],
+    "01/05/2026": [
+        "Labour Day"
+    ],
+    "25/05/2026": [
+        "The day following the Birthday of the Buddha"
+    ],
+    "03/06/2026": [
+        "Staff Development Day"
+    ],
+    "04/06/2026": [
+        "Study Break"
+    ],
+    "05/06/2026": [
+        "Study Break"
+    ],
+    "08/06/2026": [
+        "Final Exam"
+    ],
+    "09/06/2026": [
+        "Final Exam"
+    ],
+    "10/06/2026": [
+        "Final Exam"
+    ],
+    "11/06/2026": [
+        "Final Exam"
+    ],
+    "12/06/2026": [
+        "Final Exam"
+    ],
+    "15/06/2026": [
+        "Final Exam"
+    ],
+    "16/06/2026": [
+        "Final Exam"
+    ],
+    "17/06/2026": [
+        "Final Exam"
+    ],
+    "18/06/2026": [
+        "Final Exam"
+    ],
+    "19/06/2026": [
+        "Tuen Ng Festival"
+    ],
+    "22/06/2026": [
+        "Final Exam"
+    ]
+};
+  function format_date(d) {
+    return d.toLocaleDateString("en-GB");
+  }
+  const formatted_calendar_data = new Set(Object.keys(calendar_data));
+  const start_day = new Date("2025-11-07");
+  let next_day = new Date(in_day);
+  let days_between = [];
+  for (let i = 0; i < 365; i++) {
+    next_day.setDate(next_day.getDate() + 1);
+    const weekday = next_day.getDay();
+    const string = format_date(next_day);
+    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
+      break;
+    }
+  }
+  let cycle_no = 0;
+  let count_day = new Date(start_day);
+  while (count_day < next_day) {
+    const weekday = count_day.getDay();
+    const string = format_date(count_day);
+    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
+      cycle_no++;
+    }
+    if (formatted_calendar_data.has(string) && count_day > in_day) {
+      days_between.push([new Date(count_day), calendar_data[string][0]]);
+    }
+    count_day.setDate(count_day.getDate() + 1);
+  }
+  return [format_date(next_day),cycle_no % 6 + 1, days_between];
+}
+      function out_format(data) {
+        console.log(data);
+  if (!Array.isArray(data) || data.length < 3) {
+    return "Invalid data.";
+  }
+
+  const [nextSchoolDate, cycleDay, holidaysBetween] = data;
+  let output = `• Next School Day: ${nextSchoolDate}<br>`;
+  output += `• Cycle Day: Day ${cycleDay}<br>`;
+
+  if (Array.isArray(holidaysBetween) && holidaysBetween.length > 0) {
+    output += `• Holidays Before Next School Day:<br>`;
+    for (const [dateObj, name] of holidaysBetween) {
+      const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
+      output += `&nbsp;&nbsp;- ${dateStr}: ${name}<br>`;
+    }
+  } else {
+    output += `• No holidays before the next school day.<br>`;
+  }
+
+  return output;
+}
     </script>
   </body>
 </html>
