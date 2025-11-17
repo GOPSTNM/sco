@@ -46,7 +46,11 @@
           }
           count_day.setDate(count_day.getDate() + 1);
         }
-        return [format_date(next_day), cycle_no % 6 + 1, days_between, cycle_no];
+        let odd_even = "Odd";
+        if (cycle_no % 12 > 6) {
+          odd_even = "Even";
+        }
+        return [format_date(next_day), cycle_no % 6 + 1, days_between, odd_even];
       }
       function out_format(data) {
         if (!Array.isArray(data) || data.length !== 4) {
