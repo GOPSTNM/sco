@@ -49,7 +49,7 @@
         return [format_date(next_day), cycle_no % 6 + 1, days_between, cycle_no];
       }
       function out_format(data) {
-        if (!Array.isArray(data) || data.length !== 3) {
+        if (!Array.isArray(data) || data.length !== 4) {
           return "No calendar data available.";
         }
         const [next_day, cycle_day, holidays] = data;
