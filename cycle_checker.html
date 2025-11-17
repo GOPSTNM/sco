@@ -50,15 +50,16 @@
       }
       function out_format(data) {
         console.log(data);
-        if (!Array.isArray(data) || data.length < 3) {
-          return "Invalid data.";
+        if (!Array.isArray(data) || data.length !== 3) {
+          return "No calendar data available.";
         }
-        const [nextSchoolDate, cycleDay, holidaysBetween] = data;
-        let output = `• Next School Day: ${nextSchoolDate}<br>`;
-        output += `• Cycle Day: Day ${cycleDay}<br>`;
-        if (Array.isArray(holidaysBetween) && holidaysBetween.length > 0) {
+        const [next_day, cycle_day, holidays] = data;
+        let output = "";
+        output += `• Next School Day: ${next_day}<br>`;
+        output += `• Cycle Day: Day ${cycle_day}<br>`;
+        if (Array.isArray(holidays) && holidays.length > 0) {
           output += `• Holidays Before Next School Day:<br>`;
-          for (const [dateObj, name] of holidaysBetween) {
+          for (const [dateObj, name] of holidays) {
             const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
             output += `&nbsp;&nbsp;- ${dateStr}: ${name}<br>`;
           }
