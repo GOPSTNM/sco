@@ -52,7 +52,7 @@
         if (!Array.isArray(data) || data.length !== 4) {
           return "No calendar data available.";
         }
-        const [next_day, cycle_day, holidays] = data;
+        const [next_day, cycle_day, holidays, cycle_ref] = data;
         let output = "";
         if (Array.isArray(holidays) && holidays.length > 0) {
           for (const [date, name] of holidays) {
@@ -60,7 +60,7 @@
             output += `${string} ${name}<br>`;
           }
         }
-        output += `${next_day} Next Scheduled Day (Day ${cycle_day})`;
+        output += `${next_day} Next Scheduled Day (${cycle_ref} Day ${cycle_day})`;
         return output;
       }
     </script>
