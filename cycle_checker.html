@@ -21,55 +21,52 @@
           .then(data => {
             calendar_data = data;
           })
-  const formatted_calendar_data = new Set(Object.keys(calendar_data));
-  const start_day = new Date("2025-11-07");
-  let next_day = new Date(in_day);
-  let days_between = [];
-  for (let i = 0; i < 365; i++) {
-    next_day.setDate(next_day.getDate() + 1);
-    const weekday = next_day.getDay();
-    const string = format_date(next_day);
-    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
-      break;
-    }
-  }
-  let cycle_no = 0;
-  let count_day = new Date(start_day);
-  while (count_day < next_day) {
-    const weekday = count_day.getDay();
-    const string = format_date(count_day);
-    if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
-      cycle_no++;
-    }
-    if (formatted_calendar_data.has(string) && count_day > in_day) {
-      days_between.push([new Date(count_day), calendar_data[string][0]]);
-    }
-    count_day.setDate(count_day.getDate() + 1);
-  }
-  return [format_date(next_day),cycle_no % 6 + 1, days_between];
-}
+          const formatted_calendar_data = new Set(Object.keys(calendar_data));
+        const start_day = new Date("2025-11-07");
+        let next_day = new Date(in_day);
+        let days_between = [];
+        for (let i = 0; i < 365; i++) {
+          next_day.setDate(next_day.getDate() + 1);
+          const weekday = next_day.getDay();
+          const string = format_date(next_day);
+          if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
+            break;
+          }
+        }
+        let cycle_no = 0;
+        let count_day = new Date(start_day);
+        while (count_day < next_day) {
+          const weekday = count_day.getDay();
+          const string = format_date(count_day);
+          if (weekday !== 0 && weekday !== 6 && !formatted_calendar_data.has(string)) {
+            cycle_no++;
+          }
+          if (formatted_calendar_data.has(string) && count_day > in_day) {
+            days_between.push([new Date(count_day), calendar_data[string][0]]);
+          }
+          count_day.setDate(count_day.getDate() + 1);
+        }
+        return [format_date(next_day),cycle_no % 6 + 1, days_between];
+      }
       function out_format(data) {
         console.log(data);
-  if (!Array.isArray(data) || data.length < 3) {
-    return "Invalid data.";
-  }
-
-  const [nextSchoolDate, cycleDay, holidaysBetween] = data;
-  let output = `• Next School Day: ${nextSchoolDate}<br>`;
-  output += `• Cycle Day: Day ${cycleDay}<br>`;
-
-  if (Array.isArray(holidaysBetween) && holidaysBetween.length > 0) {
-    output += `• Holidays Before Next School Day:<br>`;
-    for (const [dateObj, name] of holidaysBetween) {
-      const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
-      output += `&nbsp;&nbsp;- ${dateStr}: ${name}<br>`;
-    }
-  } else {
-    output += `• No holidays before the next school day.<br>`;
-  }
-
-  return output;
-}
+        if (!Array.isArray(data) || data.length < 3) {
+          return "Invalid data.";
+        }
+        const [nextSchoolDate, cycleDay, holidaysBetween] = data;
+        let output = `• Next School Day: ${nextSchoolDate}<br>`;
+        output += `• Cycle Day: Day ${cycleDay}<br>`;
+        if (Array.isArray(holidaysBetween) && holidaysBetween.length > 0) {
+          output += `• Holidays Before Next School Day:<br>`;
+          for (const [dateObj, name] of holidaysBetween) {
+            const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
+            output += `&nbsp;&nbsp;- ${dateStr}: ${name}<br>`;
+          }
+        } else {
+          output += `• No holidays before the next school day.<br>`;
+        }
+        return output;
+      }
     </script>
   </body>
 </html>
