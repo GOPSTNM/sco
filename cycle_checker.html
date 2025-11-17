@@ -11,16 +11,16 @@
     <div id="results"></div>
     <p class="description_text">The information is for reference only</p>
     <script>
+      let calendar_data;
+      fetch("data/cd.json")
+        .then(response => response.json())
+        .then(data => {
+          calendar_data = data;
+        });
       function format_date(d) {
         return d.toLocaleDateString("en-GB");
       }
       function get_calendar_next_day(in_day) {
-        let calendar_data;
-        fetch("data/cd.json")
-          .then(response => response.json())
-          .then(data => {
-            calendar_data = data;
-          });
         const formatted_calendar_data = new Set(Object.keys(calendar_data));
         const start_day = new Date("2025-11-07");
         let next_day = new Date(in_day);
