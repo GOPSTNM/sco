@@ -46,10 +46,9 @@
           }
           count_day.setDate(count_day.getDate() + 1);
         }
-        return [format_date(next_day),cycle_no % 6 + 1, days_between];
+        return [format_date(next_day), cycle_no % 6 + 1, days_between, cycle_no];
       }
       function out_format(data) {
-        console.log(data);
         if (!Array.isArray(data) || data.length !== 3) {
           return "No calendar data available.";
         }
@@ -58,10 +57,10 @@
         if (Array.isArray(holidays) && holidays.length > 0) {
           for (const [date, name] of holidays) {
             const string = new Date(date).toLocaleDateString("en-GB");
-            output += `${string}: ${name}<br>`;
+            output += `${string} ${name}<br>`;
           }
         }
-        output += `${next_day} Day ${cycle_day}`;
+        output += `${next_day} Next Scheduled Day (Day ${cycle_day})`;
         return output;
       }
     </script>
