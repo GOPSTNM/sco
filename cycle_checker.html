@@ -20,8 +20,8 @@
           .then(response => response.json())
           .then(data => {
             calendar_data = data;
-          })
-          const formatted_calendar_data = new Set(Object.keys(calendar_data));
+          });
+        const formatted_calendar_data = new Set(Object.keys(calendar_data));
         const start_day = new Date("2025-11-07");
         let next_day = new Date(in_day);
         let days_between = [];
