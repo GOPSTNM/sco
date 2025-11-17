@@ -55,17 +55,13 @@
         }
         const [next_day, cycle_day, holidays] = data;
         let output = "";
-        output += `• Next School Day: ${next_day}<br>`;
-        output += `• Cycle Day: Day ${cycle_day}<br>`;
         if (Array.isArray(holidays) && holidays.length > 0) {
-          output += `• Holidays Before Next School Day:<br>`;
-          for (const [dateObj, name] of holidays) {
-            const dateStr = new Date(dateObj).toLocaleDateString("en-GB");
-            output += `&nbsp;&nbsp;- ${dateStr}: ${name}<br>`;
+          for (const [date, name] of holidays) {
+            const string = new Date(date).toLocaleDateString("en-GB");
+            output += `${string}: ${name}<br>`;
           }
-        } else {
-          output += `• No holidays before the next school day.<br>`;
         }
+        output += `${next_day} Day ${cycle_day}`;
         return output;
       }
     </script>
