@@ -61,7 +61,7 @@
         if (Array.isArray(holidays) && holidays.length > 0) {
           for (const [date, name] of holidays) {
             const string = new Date(date).toLocaleDateString("en-GB");
-            output += `<div style="border: 2px solid grey;">${string} ${name}</div>`;
+            output += `<div style="border: 2px solid grey; border-radius: 2px;">${string} ${name}</div>`;
           }
         }
         output += `${next_day} Next Scheduled Day (${cycle_ref} Day ${cycle_day})`;
