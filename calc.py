@@ -9,4 +9,5 @@ def cubic_eq(a, b, c, d):
   ans = d + x ** (1/2)
   ans = ans ** (1/3) - (ans - 2 * d) ** (1/3)
   lbl_2()
-  
+  def lbl_1():
+    
