@@ -14,3 +14,5 @@ def cubic_eq(a, b, c, d):
   def lbl_1():
     if y:
       ans = 2 * y ** (1/2) * math.cos((1/3) * math.acos(d / (y ** (3/2))))
+    def lbl_2():
+      
