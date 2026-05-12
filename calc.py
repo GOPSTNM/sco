@@ -1,3 +1,4 @@
+import math
 def cubic_eq(a, b, c, d):
   b = (-1 * b) / (3 * a)
   c = c / a
@@ -11,4 +12,5 @@ def cubic_eq(a, b, c, d):
   ans = ans ** (1/3) - (ans - 2 * d) ** (1/3)
   lbl_2()
   def lbl_1():
-    if 
+    if y:
+      ans = 2 * y ** (1/2) * math.cos((1/3) * math.acos(d / (y ** (3/2))))
