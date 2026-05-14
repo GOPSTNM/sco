@@ -1,8 +1,11 @@
+function num_input() {
+  return Number(prompt());
+}
 function cubic_eq() {
-  let a = Number(input());
-  let b = Number(input());
-  let c = Number(input());
-  let d = Number(input());
+  let a = num_input();
+  let b = num_input();
+  let c = num_input();
+  let d = num_input();
   let x;
   let y;
   let ans;
