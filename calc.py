@@ -1,5 +1,9 @@
 import math
-def cubic_eq(a, b, c, d):
+def cubic_eq():
+  a = float(input())
+  b = float(input())
+  c = float(input())
+  d = float(input())
   b = (-1 * b) / (3 * a)
   c = c / a
   d = b ** 3 - (b * c) / 2 - d / (2 * a)
