@@ -1,19 +1,15 @@
-a = 0
-b = 0
-c = 0
-d = 0
-x = 0
-y = 0
-ans = 0
-def cubic_eq():
-  global a = float(input())
-  global b = float(input())
-  global c = float(input())
-  global d = float(input())
-  global b = (-1 * b) / (3 * a)
-  global c = c / a
-  global d = b ** 3 - (b * c) / 2 - d / (2 * a)
-  global y = b ** 2 - c / 3
+function cubic_eq() {
+  let a = float(input());
+  let b = float(input());
+  let c = float(input());
+  let d = float(input());
+  let x;
+  let y;
+  let ans;
+  b = (-1 * b) / (3 * a)
+  c = c / a
+  d = b ** 3 - (b * c) / 2 - d / (2 * a)
+  y = b ** 2 - c / 3
   global x = d ** 2 - y ** 3
   if x <= 0:
     lbl_1()
