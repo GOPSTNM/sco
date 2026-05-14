@@ -15,14 +15,15 @@ def cubic_eq():
     ans = d + x ** (1/2)
   ans = ans ** (1/3) - (ans - 2 * d) ** (1/3)
   lbl_2()
-  def lbl_1():
-    if y:
-      ans = 2 * y ** (1/2) * math.cos((1/3) * math.acos(d / (y ** (3/2))))
-    def lbl_2():
-        a = b + ans
-        print(a)
-        d = 3 * b - a
-        b = d / 2 + (d ** 2 / 4 - c + a * d) ** 1/2
-        print(b)
-        c = d - b
-        print(c)
+def lbl_1():
+  if y:
+    ans = 2 * y ** (1/2) * math.cos((1/3) * math.acos(d / (y ** (3/2))))
+def lbl_2():
+  a = b + ans
+  print(a)
+  d = 3 * b - a
+  b = d / 2 + (d ** 2 / 4 - c + a * d) ** 1/2
+  print(b)
+  c = d - b
+  print(c)
+cubic_eq()
