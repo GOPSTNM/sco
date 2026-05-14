@@ -1,4 +1,11 @@
 import math
+a = 0
+b = 0
+c = 0
+d = 0
+x = 0
+y = 0
+ans = 0
 def cubic_eq():
   a = float(input())
   b = float(input())
