@@ -2,40 +2,38 @@ cubic_eq();
 function num_input() {
   return Number(prompt());
 }
-function solveCubicStrict(a, b, c, d) {
-    // 1. Calculate p (reusing 'p')
-    var p = (3 * a * c - b * b) / (3 * a * a);
+function solveCubicStrict(A, B, C, D) {
+    // X = p (depressed cubic)
+    X = (3 * A * C - B * B) / (3 * A * A);
     
-    // 2. Calculate q (reusing 'q')
-    var q = (2 * b * b * b - 9 * a * b * c + 27 * a * a * d) / (27 * a * a * a);
+    // Y = q (depressed cubic)
+    Y = (2 * B * B * B - 9 * A * B * C + 27 * A * A * D) / (27 * A * A * A);
 
-    // 3. Calculate the helper for the trigonometric argument (reusing 'r')
-    var r = Math.acos(-q / 2 * Math.sqrt(-27 / (p * p * p)));
+    // M = phi (trigonometric angle)
+    M = Math.acos(-Y / 2 * Math.sqrt(-27 / (X * X * X)));
 
-    // 4. Overwrite d to find the first root (r1)
-    // We reuse 'd' because we no longer need the original constant
-    d = 2 * Math.sqrt(-p / 3) * Math.cos(r / 3) - b / (3 * a);
+    // Store the first root in Y
+    // We calculate it using the existing A, B, X, M
+    Y = 2 * Math.sqrt(-X / 3) * Math.cos(M / 3) - B / (3 * A);
 
-    // 5. Calculate Synthetic Division coefficients
-    // We reuse 'a' as quadA (remains 'a')
-    // We reuse 'b' as quadB
-    b = b + (a * d);
-    // We reuse 'c' as quadC
-    c = c + (b * d);
+    // Use X and M to calculate the 2nd and 3rd roots before we lose original B
+    X = 2 * Math.sqrt(-( (3 * A * C - B * B) / (3 * A * A) ) / 3) * Math.cos((M + 2 * Math.PI) / 3) - B / (3 * A);
+    M = 2 * Math.sqrt(-( (3 * A * C - B * B) / (3 * A * A) ) / 3) * Math.cos((M + 4 * Math.PI) / 3) - B / (3 * A);
 
-    // 6. Calculate second and third roots using 'p' and 'q' as temporary storage
-    p = 2 * Math.sqrt(-( (3 * a * (c - (b * d)) - (b - (a * d)) * (b - (a * d))) / (3 * a * a) ) / 3) * Math.cos((r + 2 * Math.PI) / 3) - (b - (a * d)) / (3 * a);
-    q = 2 * Math.sqrt(-( (3 * a * (c - (b * d)) - (b - (a * d)) * (b - (a * d))) / (3 * a * a) ) / 3) * Math.cos((r + 4 * Math.PI) / 3) - (b - (a * d)) / (3 * a);
+    // Repurpose B and C for the Synthetic Division coefficients (A remains quadA)
+    B = B + (A * Y);
+    C = C + (B * Y);
 
-    // Final mapping:
-    // d = first root
-    // a = quadA
-    // b = quadB
-    // c = quadC
-    // p = second root
-    // q = third root
-    return [d, a, b, c, p, q];
+    // Final order: 
+    // 1. First Root (Y)
+    // 2. quadA (A)
+    // 3. quadB (B)
+    // 4. quadC (C)
+    // 5. Second Root (X)
+    // 6. Third Root (M)
+    return [Y, A, B, C, X, M];
 }
+
 
 function cubic_eq() {
   let a = num_input();
