@@ -1,8 +1,8 @@
 function cubic_eq() {
-  let a = float(input());
-  let b = float(input());
-  let c = float(input());
-  let d = float(input());
+  let a = Number(input());
+  let b = Number(input());
+  let c = Number(input());
+  let d = Number(input());
   let x;
   let y;
   let ans;
