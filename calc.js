@@ -2,6 +2,41 @@ cubic_eq();
 function num_input() {
   return Number(prompt());
 }
+function solveCubicStrict(a, b, c, d) {
+    // 1. Calculate p (reusing 'p')
+    var p = (3 * a * c - b * b) / (3 * a * a);
+    
+    // 2. Calculate q (reusing 'q')
+    var q = (2 * b * b * b - 9 * a * b * c + 27 * a * a * d) / (27 * a * a * a);
+
+    // 3. Calculate the helper for the trigonometric argument (reusing 'r')
+    var r = Math.acos(-q / 2 * Math.sqrt(-27 / (p * p * p)));
+
+    // 4. Overwrite d to find the first root (r1)
+    // We reuse 'd' because we no longer need the original constant
+    d = 2 * Math.sqrt(-p / 3) * Math.cos(r / 3) - b / (3 * a);
+
+    // 5. Calculate Synthetic Division coefficients
+    // We reuse 'a' as quadA (remains 'a')
+    // We reuse 'b' as quadB
+    b = b + (a * d);
+    // We reuse 'c' as quadC
+    c = c + (b * d);
+
+    // 6. Calculate second and third roots using 'p' and 'q' as temporary storage
+    p = 2 * Math.sqrt(-( (3 * a * (c - (b * d)) - (b - (a * d)) * (b - (a * d))) / (3 * a * a) ) / 3) * Math.cos((r + 2 * Math.PI) / 3) - (b - (a * d)) / (3 * a);
+    q = 2 * Math.sqrt(-( (3 * a * (c - (b * d)) - (b - (a * d)) * (b - (a * d))) / (3 * a * a) ) / 3) * Math.cos((r + 4 * Math.PI) / 3) - (b - (a * d)) / (3 * a);
+
+    // Final mapping:
+    // d = first root
+    // a = quadA
+    // b = quadB
+    // c = quadC
+    // p = second root
+    // q = third root
+    return [d, a, b, c, p, q];
+}
+
 function cubic_eq() {
   let a = num_input();
   let b = num_input();
