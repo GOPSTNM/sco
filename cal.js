@@ -2,7 +2,7 @@ cubic_eq();
 function num_input() {
   return Number(prompt());
 }
-function solveCubicStrict() {
+function cubic_eq() {
   let A = num_input();
   let B = num_input();
   let C = num_input();
